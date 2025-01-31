@@ -1,21 +1,159 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* 
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;700&display=swap"); */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --afternoon: #f0f8ff;
+  --text: #1a1917;
+  --shadow: #1a1917;
+  --bounce-light: #f5d7a6;
+  --timing-fn: cubic-bezier(0.455, 0.19, 0.0, 0.985);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--afternoon);
+  color: var(--text);
 }
+
+#dappled-light {
+  pointer-events: none;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  opacity: 1;
+}
+
+#glow,
+#glow-bounce {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+#glow {
+  background: linear-gradient(309deg, var(--bounce-light), var(--bounce-light) 20%, transparent);
+  opacity: 0.7;
+}
+
+#glow-bounce {
+  background: linear-gradient(355deg, var(--bounce-light) 0%, transparent 30%, transparent 100%);
+  opacity: 0.7;
+  bottom: 0;
+}
+
+.perspective {
+  position: absolute;
+  top: -30vh;
+  right: -20vw;
+  width: 120vw;
+  height: 150vh;
+  opacity: 0.1;
+  background-blend-mode: darken;
+  transform-origin: top right;
+  transform-style: preserve-3d;
+  transform: matrix3d(0.75, -0.0625, 0.0, 0.0008, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
+}
+
+#leaves {
+  position: absolute;
+  background-size: cover;
+  background-repeat: no-repeat;
+  bottom: -10px;
+  right: -350px;
+  width: 1800px;
+  height: 1600px;
+  background-image: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/leaves-azTTuC0g8jJk8tGVghrtoeoij32pR7.png");
+  filter: url(#wind) brightness(1.2);
+  animation: billow 8s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+#light-rays {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0.5;
+}
+
+.light-ray {
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+  transform-origin: top;
+}
+
+@keyframes billow {
+  0% {
+    transform: perspective(400px) rotateX(0deg) rotateY(0deg) scale(1);
+  }
+  25% {
+    transform: perspective(400px) rotateX(1deg) rotateY(2deg) scale(1.02);
+  }
+  50% {
+    transform: perspective(400px) rotateX(-4deg) rotateY(-2deg) scale(0.97);
+  }
+  75% {
+    transform: perspective(400px) rotateX(1deg) rotateY(-1deg) scale(1.04);
+  }
+  100% {
+    transform: perspective(400px) rotateX(0deg) rotateY(0deg) scale(1);
+  }
+}
+
+.mono-link {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.mono-link:hover {
+  text-decoration: none;
+}
+
+.font-geist {
+  font-family: "Geist", sans-serif;
+}
+
+.group:hover .group-hover\:rotate-45 {
+  transform: rotate(45deg);
+}
+
+/* New styles for tooltip */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
