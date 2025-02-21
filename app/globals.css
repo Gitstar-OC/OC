@@ -1,0 +1,241 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --morning-bg: #f0f8ff;
+  --morning-text: #1a1917;
+  --morning-heading: #0f172a;
+  --morning-project: #2563eb;
+  --morning-link: #3b82f6;
+  --morning-selection-bg: #bfdbfe;
+  --morning-selection-text: #1e3a8a;
+
+  --afternoon-bg: #fdf6e3;
+  --afternoon-text: #2c2c2c;
+  --afternoon-heading: #1e293b;
+  --afternoon-project: #0d9488;
+  --afternoon-link: #0891b2;
+  --afternoon-selection-bg: #fde68a;
+  --afternoon-selection-text: #92400e;
+
+  --night-bg: #000000;
+  --night-text: #e0e0e0;
+  --night-heading: #f1f5f9;
+  --night-project: #6366f1;
+  --night-link: #818cf8;
+  --night-selection-bg: #4b5563;
+  --night-selection-text: #e2e8f0;
+
+  --scrollbar-width: 6px;
+  --scrollbar-track: rgba(0, 0, 0, 0.1);
+  --scrollbar-thumb: rgba(0, 0, 0, 0.5);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 20px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--morning-bg);
+  color: var(--morning-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: "JetBrains Mono", monospace;
+}
+
+body.afternoon {
+  background-color: var(--afternoon-bg);
+  color: var(--afternoon-text);
+}
+
+body.night {
+  background-color: var(--night-bg);
+  color: var(--night-text);
+}
+
+/* Custom text selection styles */
+::selection {
+  background-color: var(--morning-selection-bg);
+  color: var(--morning-selection-text);
+}
+
+body.afternoon ::selection {
+  background-color: var(--afternoon-selection-bg);
+  color: var(--afternoon-selection-text);
+}
+
+body.night ::selection {
+  background-color: var(--night-selection-bg);
+  color: var(--night-selection-text);
+}
+
+.title {
+  @apply text-5xl mb-2 opacity-100;
+}
+
+.subtitle {
+  @apply text-lg mb-4 opacity-80;
+  font-family: var(--font-roboto-slab);
+}
+
+.heading {
+  @apply text-2xl font-bold mb-4 opacity-90;
+  font-family: var(--font-roboto-slab);
+}
+
+.text {
+  @apply text-lg mb-4 opacity-70;
+}
+
+.project-link {
+  @apply font-semibold underline underline-offset-2 hover:no-underline transition-all duration-200 opacity-70;
+}
+
+.inline-link {
+  @apply font-semibold underline underline-offset-2 hover:no-underline transition-all duration-200;
+  color: var(--morning-link);
+}
+
+body.afternoon .inline-link {
+  color: var(--afternoon-link);
+}
+
+body.night .inline-link {
+  color: var(--night-link);
+}
+
+#dappled-light {
+  pointer-events: none;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  opacity: 1;
+}
+
+#glow,
+#glow-bounce {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+#glow {
+  background: linear-gradient(309deg, var(--morning-bounce-light), var(--morning-bounce-light) 20%, transparent);
+  opacity: 0.7;
+  transition: background 0.3s ease;
+}
+
+#glow-bounce {
+  background: linear-gradient(355deg, var(--morning-bounce-light) 0%, transparent 30%, transparent 100%);
+  opacity: 0.7;
+  bottom: 0;
+  transition: background 0.3s ease;
+}
+
+body.afternoon #glow {
+  background: linear-gradient(309deg, var(--afternoon-bounce-light), var(--afternoon-bounce-light) 20%, transparent);
+}
+
+body.afternoon #glow-bounce {
+  background: linear-gradient(355deg, var(--afternoon-bounce-light) 0%, transparent 30%, transparent 100%);
+}
+
+body.night #glow {
+  background: linear-gradient(309deg, var(--night-bounce-light), var(--night-bounce-light) 20%, transparent);
+}
+
+body.night #glow-bounce {
+  background: linear-gradient(355deg, var(--night-bounce-light) 0%, transparent 30%, transparent 100%);
+}
+
+.perspective {
+  position: absolute;
+  top: -30vh;
+  right: -20vw;
+  width: 120vw;
+  height: 150vh;
+  opacity: 0.1;
+  background-blend-mode: darken;
+  transform-origin: top right;
+  transform-style: preserve-3d;
+  transform: matrix3d(0.75, -0.0625, 0.0, 0.0008, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
+}
+
+#leaves {
+  position: absolute;
+  background-size: cover;
+  background-repeat: no-repeat;
+  bottom: -10px;
+  right: -350px;
+  width: 1800px;
+  height: 1600px;
+  background-image: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/leaves-azTTuC0g8jJk8tGVghrtoeoij32pR7.png");
+  filter: url(#wind) brightness(1.2);
+  transition: filter 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+  animation: billow 8s ease-in-out infinite;
+  opacity: 0.9;
+  z-index: -1;
+}
+
+body.night #leaves {
+  filter: url(#wind) brightness(1.5) contrast(1.2) invert(0.8);
+  opacity: 0.4;
+  box-shadow: 0 0 50px 10px rgba(255, 255, 255, 0.1);
+}
+
+@keyframes subtleGlow {
+  0%,
+  100% {
+    filter: url(#wind) brightness(1.5) contrast(1.2) invert(0.8);
+  }
+  50% {
+    filter: url(#wind) brightness(1.7) contrast(1.3) invert(0.8);
+  }
+}
+
+body.night #leaves {
+  animation: billow 8s ease-in-out infinite, subtleGlow 4s ease-in-out infinite;
+}
+
+@keyframes billow {
+  0% {
+    transform: perspective(400px) rotateX(0deg) rotateY(0deg) scale(1);
+  }
+  25% {
+    transform: perspective(400px) rotateX(1deg) rotateY(2deg) scale(1.02);
+  }
+  50% {
+    transform: perspective(400px) rotateX(-4deg) rotateY(-2deg) scale(0.97);
+  }
+  75% {
+    transform: perspective(400px) rotateX(1deg) rotateY(-1deg) scale(1.04);
+  }
+  100% {
+    transform: perspective(400px) rotateX(0deg) rotateY(0deg) scale(1);
+  }
+}
+
+.mono-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  color: inherit;
+}
+
+.mono-link:hover {
+  text-decoration: none;
+}
+
