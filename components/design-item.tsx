@@ -112,7 +112,7 @@ export const DesignItem: React.FC<DesignItemProps> = ({
 
   const MinimizedView = () => (
     <div className="mb-12 mt-12" ref={componentRef}>
-      <h3 className="text-lg mb-2 text-morning-heading dark:text-night-heading">
+      <h3 className="text-lg mb-2 text-black dark:text-night-heading">
         {title}
       </h3>
       <p className="mb-6 text-neutral-700 dark:text-neutral-400">
