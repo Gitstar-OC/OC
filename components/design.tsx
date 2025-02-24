@@ -11,9 +11,9 @@ export const Design: React.FC = () => {
       <DesignItem
         title="Smooth Button"
         description="Simple and smooth button used for various tasks like submitting a feedback, sending a mail or login link. "
-        tags={["react", "tailwindcss", "framer motion"]}
+        tags={["React", "Tailwind", "Framer Motion"]}
         designedBy="Emil"
-        sourceLink={{ link: "https://animations.dev", name: "Animations.dev" }}
+        // sourceLink={{ link: "https://animations.dev", name: "Animations.dev" }}
       >
         <SmoothButton />
       </DesignItem>
