@@ -2,10 +2,11 @@
 
 import React, { useState, useRef } from "react";
 import { createPortal } from "react-dom";
-import {motion} from "motion/react"
+import { motion, AnimatePresence } from "motion/react"
 import { DesignedByTag } from "@/components/designed-by-tag";
 import { SourceLinkTag } from "@/components/source-link-tag";
 import { Maximize2, Minimize2, ChevronLast } from "lucide-react";
+
 
 interface DesignItemProps {
   title: string;
@@ -18,6 +19,8 @@ interface DesignItemProps {
     name: string;
   };
 }
+
+
 
 export const DesignItem: React.FC<DesignItemProps> = ({
   title,
@@ -54,10 +57,10 @@ export const DesignItem: React.FC<DesignItemProps> = ({
   }, []);
 
   const MaximizedView = () => (
-    <motion.div  className="fixed inset-0 z-50 overflow-hidden dark:bg-black bg-white">
+    <motion.div className="fixed inset-0 z-50 overflow-hidden dark:bg-black bg-white">
       <div className="h-full flex flex-col md:flex-row p-0 md:p-10 relative">
         {/* <Lines /> */}
-        
+
         {/* Left sidebar */}
         <div className="w-full md:w-72 p-6 md:p-0 md:pr-6 md:mt-10 md:ml-12 flex flex-col justify-between">
           <div>
@@ -85,7 +88,7 @@ export const DesignItem: React.FC<DesignItemProps> = ({
         {/* Main content */}
         <motion.div layoutId="container" className="flex-1 relative mt-6 md:mt-0">
           <div className="absolute inset-0 flex items-center justify-center p-6 md:p-0">
-            <motion.div  className="w-full md:w-[85%] h-full md:h-[85%] dark:bg-black bg-white rounded-xl flex items-center justify-center dark:border-neutral-800 border-neutral-300 border overflow-hidden">
+            <motion.div className="w-full md:w-[85%] h-full md:h-[85%] dark:bg-black bg-white rounded-xl flex items-center justify-center dark:border-neutral-800 border-neutral-300 border overflow-hidden">
               {children}
             </motion.div>
           </div>
@@ -94,8 +97,8 @@ export const DesignItem: React.FC<DesignItemProps> = ({
         {/* Control buttons */}
         <div className="absolute top-4 mr-2 right-6 flex gap-4 z-10">
           <motion.button
-            initial={{opacity: 0, filter: "blur(4px)"}}
-            animate={{opacity: 1, filter: "blur(0px)"}} 
+            initial={{ opacity: 0, filter: "blur(4px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
             className="p-2 dark:bg-black shadow-lg dark:shadow-neutral-500 dark:shadow-sm bg-white rounded-lg transition-colors"
             aria-label="View Code"
           >
@@ -139,7 +142,7 @@ export const DesignItem: React.FC<DesignItemProps> = ({
           {children}
         </motion.div>
         <motion.button
-        layoutId="control-button"
+          layoutId="control-button"
           onClick={toggleMaximize}
           className="absolute top-4 right-4 p-2 bg-white dark:bg-black rounded-lg shadow-xl dark:shadow-neutral-500 dark:shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out hidden lg:block"
           aria-label="Maximize"
